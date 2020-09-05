@@ -10,14 +10,19 @@
   // The ajax file uplaoder is provided for your convenience!
   // Note: remember to fix the URL below.
   /////////////////////////////////////////////////////////////////////
-
+/**
+ * export ajaxFileUpload
+ * google/slides this
+ * exports.ajaxFileUpload
+ * to ./keypressHandler
+ */
   const ajaxFileUplaod = (file) => {
-    var formData = new FormData();
+    var formData = new FormData(); // Consider making out own FormData class
     formData.append('file', file);
     $.ajax({
       type: 'POST',
       data: formData,
-      url: 'FILL_ME_IN',
+      url:  serverUrl,
       cache: false,
       contentType: false,
       processData: false,
@@ -26,7 +31,11 @@
         window.location = window.location.href;
       }
     });
+
   };
+
+
+
 
   $('form').on('submit', function(e) {
     e.preventDefault();

@@ -10,7 +10,7 @@ const mappedChars = { space: ' ' }; // special mappings
 
 const isValidMessage = (message) => {
   return _.contains(validMessages, message);
-};
+};// checks for arrow press from "keypress" library
 
 const logKeypress = (key) => {
   // in raw-mode it's handy to see what's been typed
@@ -26,8 +26,19 @@ const logKeypress = (key) => {
 
 var message = ''; // a buffer to collect key presses
 
-module.exports.initialize = (callback) => {
 
+// module.export => exports anything as a key in an object
+module.exports.initialize = (callback) => {
+/**
+ *
+ * keypressHandler.initalize in index.js
+ * passes a function
+ *
+ * callback ===
+ * vvvvvv argument ----------------------------vvvvvv
+ * message => console.log('Message received: ${message})
+ *
+ */
   // setup an event handler on standard input
   process.stdin.on('keypress', (chunk, key) => {
     // ctrl+c should quit the program
@@ -40,7 +51,7 @@ module.exports.initialize = (callback) => {
       callback(key.name);
       return; // don't do any more processing on this key
     }
-    
+
     // otherwise build up a message from individual characters
     if (key && (key.name === 'return' || key.name === 'enter')) {
       // on enter, process the message
