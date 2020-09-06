@@ -9,6 +9,7 @@ const validMessages = ['left', 'right', 'up', 'down'];
 const mappedChars = { space: ' ' }; // special mappings
 
 const isValidMessage = (message) => {
+
   return _.contains(validMessages, message);
 };// checks for arrow press from "keypress" library
 
@@ -24,7 +25,7 @@ const logKeypress = (key) => {
 // Keypress Handler ///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-var message = ''; // a buffer to collect key presses
+var message = 'test'; // a buffer to collect key presses
 
 
 // module.export => exports anything as a key in an object

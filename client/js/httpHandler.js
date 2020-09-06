@@ -1,3 +1,18 @@
+console.log('test');
+
+// function runForever(){
+//   $.ajax({
+//     type: 'GET',
+//     data: 'http://127.0.0.1:3000',
+//     url:  './water-lg.jpg',
+//     success: (response) => {
+//       console.log(response)
+//       // $('.pool').css(background-image, response);
+//     }
+//   })
+//   console.log('test');
+// }();
+
 (function() {
 
   const serverUrl = 'http://127.0.0.1:3000';
@@ -6,6 +21,20 @@
   // TODO: build the swim command fetcher here
   //
 
+  window.fetchCommand = () => {
+    $.ajax({
+      type: 'GET',
+      url: serverUrl,
+      success: (command) => {
+        SwimTeam.move(command);
+      },
+      complete: () => {
+        setTimeout(fetchCommand, 20);
+      }
+    })
+  }
+window.fetchCommand();
+// setInterval(fetchCommand, 1000);
   /////////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!
   // Note: remember to fix the URL below.
@@ -17,7 +46,7 @@
  * to ./keypressHandler
  */
   const ajaxFileUplaod = (file) => {
-    var formData = new FormData(); // Consider making out own FormData class
+    var formData = new FormData(); // Consider making our own FormData class
     formData.append('file', file);
     $.ajax({
       type: 'POST',

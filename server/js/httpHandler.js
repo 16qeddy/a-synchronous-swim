@@ -12,16 +12,33 @@ module.exports.initialize = (queue) => {
   messageQueue = queue;
 };
 
-let random = function(){
-  let result = Math.floor(Math.random()*4);
-  return result;
-}
-console.log(random());
 
-let directions = ['up', 'down', 'left', 'right']
+
 module.exports.router = (req, res, next = ()=>{}) => {
-  console.log('Serving request type ' + req.method + ' for url ' + req.url);
-  res.writeHead(200, headers);
-  res.end(directions[random()]);
-  next(); // invoke next() at the end of a request to help with testing!
-};
+
+
+  if( req.method === 'OPTIONS' ) {
+    res.writeHead(200, headers);
+    res.end();
+    next();
+  }
+
+  if ( req.method === 'GET' ) {
+    if(req.url === '/'){
+      res.writeHead(200, headers);
+      res.end(messageQueue.dequeue());
+      next();
+    } else if(req.url === '/background.jpg') {
+      fs.readFile(module.exports.backgroundImageFile, (err, data) => {
+        if(err){
+          res.writeHead(404, headers);
+        } else {
+          res.writeHead(200, headers);
+          res.write(data, 'binary');
+        }
+        res.end();
+        next();
+      });
+    }
+  }
+}
